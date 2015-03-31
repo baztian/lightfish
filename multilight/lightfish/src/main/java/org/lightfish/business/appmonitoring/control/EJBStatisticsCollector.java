@@ -82,7 +82,7 @@ public class EJBStatisticsCollector {
     }
 
     public String getUri() {
-        return "http://" + location.get() + "/monitoring/domain/server/applications/";
+        return location.get() + "/monitoring/domain/server/applications/";
     }
 
     JsonObject preprocessEntity(JsonObject entityResource) {

@@ -51,11 +51,4 @@ public class Authentication {
         return "index";
     }
 
-    public String getProtocol() {
-        String protocol = "http://";
-        if (getUsername() != null && !getUsername().isEmpty()) {
-            protocol = "https://";
-        }
-        return protocol;
-    }
 }

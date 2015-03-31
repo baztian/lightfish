@@ -46,7 +46,7 @@ public class OneShotProvider {
     }
 
     String getManagementURI() {
-        return getProtocol() + location.get() + "/management/domain/";
+        return location.get() + "/management/domain/";
     }
 
     public OneShot fetchOneShot() {
@@ -63,14 +63,4 @@ public class OneShotProvider {
         return new OneShot.Builder().version(version).uptime(uptime).build();
     }
 
-    private String getProtocol() {
-        String protocol = "http://";
-        if (username != null && username.get() != null && !username.get().isEmpty()) {
-            protocol = "https://";
-            LOG.info("User name is not empty, returning https");
-        } else {
-            LOG.info("Using " + protocol);
-        }
-        return protocol;
-    }
 }

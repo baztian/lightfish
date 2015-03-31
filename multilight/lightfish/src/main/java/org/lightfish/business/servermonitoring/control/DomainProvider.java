@@ -49,7 +49,7 @@ public class DomainProvider {
     }
 
     String getInstancesUri() {
-        return getProtocol() + location.get() + "/management/domain/servers";
+        return location.get() + "/management/domain/servers";
     }
 
     public Domain fetchDomainInfo() {
@@ -65,11 +65,4 @@ public class DomainProvider {
         return new Domain.Builder().instances(servers).build();
     }
 
-    private String getProtocol() {
-        String protocol = "http://";
-        if (username != null && username.get() != null && !username.get().isEmpty()) {
-            protocol = "https://";
-        }
-        return protocol;
-    }
 }

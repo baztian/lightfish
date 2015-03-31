@@ -34,7 +34,7 @@ public class LogCollector extends AbstractRestDataCollector<List<LogRecord>> {
 
     @Override
     protected String getBaseURI() {
-        return getProtocol() + getLocation() + "/management/domain/";
+        return getLocation() + "/management/domain/";
     }
 
     @Override

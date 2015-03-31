@@ -96,16 +96,7 @@ public abstract class AbstractRestDataCollector<TYPE> implements DataCollector<T
     }
 
     protected String getBaseURI() {
-        return getProtocol() + location.get() + "/monitoring/domain/" + serverInstance + "/";
-    }
-
-    protected String getProtocol() {
-        String protocol = "http://";
-        //TODO Error, if username == null, use http anyway
-        if (sessionToken != null && sessionToken.get() != null && !sessionToken.get().isEmpty()) {
-            protocol = "http://";
-        }
-        return protocol;
+        return location.get() + "/monitoring/domain/" + serverInstance + "/";
     }
 
     protected String getLocation() {

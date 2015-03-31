@@ -67,7 +67,7 @@ public class Index {
         return null;
     }
 
-    @Size(min=5,max=30)
+    @Size (min = 5, max = 100)
     public String getLocation() {
         return this.configurator.getValue(LOCATION);
     }

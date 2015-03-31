@@ -39,7 +39,7 @@ public class ServerInstanceProvider {
     }
 
     String getInstanceUri() {
-        return getProtocol() + location.get() + "/management/domain/servers/server/";
+        return location.get() + "/management/domain/servers/server/";
     }
 
     public ServerInstance fetchServerInstanceInfo(String instanceName) {
@@ -48,11 +48,4 @@ public class ServerInstanceProvider {
         return new ServerInstance.Builder().name(instanceName).configRef(configRef).build();
     }
 
-    private String getProtocol() {
-        String protocol = "http://";
-        if (username != null && username.get() != null && !username.get().isEmpty()) {
-            protocol = "https://";
-        }
-        return protocol;
-    }
 }

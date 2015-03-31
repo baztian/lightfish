@@ -30,7 +30,7 @@ public class ConfigurationStore {
 
     private Configuration createDefault() {
         Configuration configuration = new Configuration();
-        configuration.put("location", "localhost:4848");
+        configuration.put("location", "http://localhost:4848");
         configuration.put("jdbcPoolNames", "SamplePool");
         configuration.put("interval", "2");
         configuration.put("username", "");

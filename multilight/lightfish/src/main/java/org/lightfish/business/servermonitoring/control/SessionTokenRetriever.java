@@ -37,7 +37,7 @@ public class SessionTokenRetriever {
     Configurator configurator;
 
     String getSessionsUri() {
-        return getProtocol() + location.get() + "/management/";
+        return location.get() + "/management/";
     }
 
     public void retrieveSessionToken() {
@@ -55,11 +55,4 @@ public class SessionTokenRetriever {
 
     }
 
-    private String getProtocol() {
-        String protocol = "http://";
-        if (username != null && username.get() != null && !username.get().isEmpty()) {
-            protocol = "https://";
-        }
-        return protocol;
-    }
 }

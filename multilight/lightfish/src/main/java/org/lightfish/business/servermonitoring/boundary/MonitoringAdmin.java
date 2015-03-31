@@ -61,7 +61,7 @@ public class MonitoringAdmin {
 
     @PostConstruct
     public void initializeClient() {
-        this.baseUri = getProtocol() + location;
+        this.baseUri = location;
     }
 
     public boolean activateMonitoring() {
@@ -97,14 +97,6 @@ public class MonitoringAdmin {
             }
         }
         return true;
-    }
-
-    private String getProtocol() {
-        String protocol = "http://";
-        if (username != null && !username.isEmpty()) {
-            protocol = "https://";
-        }
-        return protocol;
     }
 
     private String getEnableMonitoringURI_312(String instanceName) {

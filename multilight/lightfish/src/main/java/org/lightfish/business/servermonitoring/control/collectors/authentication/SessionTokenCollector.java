@@ -32,7 +32,7 @@ public class SessionTokenCollector extends AbstractRestDataCollector<String> {
 
     @Override
     protected String getBaseURI() {
-        return getProtocol() + getLocation() + "/management/";
+        return getLocation() + "/management/";
     }
 
     @Override

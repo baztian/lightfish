@@ -17,3 +17,6 @@ Point your browser to: http://localhost:8080/lightfish
 
 LightFish should install the necessary connection pool and datasources on-the-fly. There is no setup needed. Tested with GlassFish v4.0.1
 
+If you wan't to monitor a server using https you have to change the location to be https instead of http. Now export the ssl certificate from within your browser and run the jdk keytool to add the key of that server:
+
+    keytool -import -noprompt -trustcacerts -alias yourserver -file /path/to/yourserver.crt -keystore /path/to/gfroot/glassfish/domains/domain1/config/cacerts.jks -storepass changeit

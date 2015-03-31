@@ -40,7 +40,7 @@ public class PollingResource {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         int interval = pollingInfo.getInt(INTERVAL);
         configurator.setValue(INTERVAL, interval);
-        String location = pollingInfo.getString(LOCATION, "localhost:4848");
+        String location = pollingInfo.getString(LOCATION, "http://localhost:4848");
         configurator.setValue(LOCATION, location);
         controller.restart();
         return status();
