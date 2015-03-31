@@ -7,7 +7,7 @@ Download the lightfish.war from [https://github.com/AdamBien/lightfish/releases]
 
 or
 
-0. Setup JAVA_HOME to point to JDK 1.7 installation (lightfish uses JDK 1.7 features)
+0. Setup JAVA_HOME to point to JDK 1.8 installation. Lightview uses JDK 1.8 features. For the server side you need at least JDK 1.7.
 1. `git clone https://github.com/AdamBien/lightfish.git`
 2. Perform `mvn clean install`in the multi-light folder
 
