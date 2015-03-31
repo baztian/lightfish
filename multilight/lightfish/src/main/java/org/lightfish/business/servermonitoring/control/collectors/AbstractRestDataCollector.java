@@ -87,10 +87,17 @@ public abstract class AbstractRestDataCollector<TYPE> implements DataCollector<T
     }
 
     protected JsonObject getJsonObject(Response result, String name) {
+        if (404 == result.getStatus()) {
+            throw new ValueNotFoundException("Value '" + name + "' could not be found.");
+        }
         JsonObject response = result.readEntity(JsonObject.class);
-        JsonObject retVal = response.getJsonObject("extraProperties").
-                getJsonObject("entity").
-                getJsonObject(name);
+        LOG.info("Retrieved JsonObject A: " + response + " for " + result + " " + name);
+        JsonObject extraPropertiesJsonObject = response.getJsonObject("extraProperties");
+        if (extraPropertiesJsonObject == null) {
+            throw new ValueNotFoundException("Extra properties for value '" + name + "' could not be found.");
+        }
+        JsonObject jsonObject = extraPropertiesJsonObject.getJsonObject("entity");
+        JsonObject retVal = jsonObject.getJsonObject(name);
         LOG.info("Retrieved JsonObject: " + retVal + " for " + result + " " + name);
         return retVal;
     }

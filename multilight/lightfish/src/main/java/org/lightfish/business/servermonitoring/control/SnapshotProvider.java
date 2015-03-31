@@ -19,15 +19,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+
 import org.lightfish.business.servermonitoring.control.collectors.DataCollector;
 import org.lightfish.business.servermonitoring.control.collectors.DataPoint;
 import org.lightfish.business.servermonitoring.control.collectors.DataPointToSnapshotMapper;
 import org.lightfish.business.servermonitoring.control.collectors.ParallelDataCollectionActionBehaviour;
 import org.lightfish.business.servermonitoring.control.collectors.ParallelDataCollectionExecutor;
 import org.lightfish.business.servermonitoring.control.collectors.SnapshotDataCollector;
+import org.lightfish.business.servermonitoring.control.collectors.ValueNotFoundException;
 import org.lightfish.business.servermonitoring.entity.Snapshot;
 
 /**
@@ -88,6 +91,9 @@ public class SnapshotProvider {
     private DataPoint serialDataCollect(DataCollector collector, int attempt) throws Exception {
         try {
             return collector.collect();
+        } catch (ValueNotFoundException e) {
+            LOG.info(e.getMessage());
+            return null;
         } catch (Exception ex) {
             if (attempt < dataCollectionRetries.get()) {
                 return serialDataCollect(collector, ++attempt);
