@@ -87,22 +87,29 @@ public abstract class AbstractRestDataCollector<TYPE> implements DataCollector<T
     }
 
     protected JsonObject getJsonObject(Response result, String name) {
-        if (404 == result.getStatus()) {
-            throw new ValueNotFoundException("Value '" + name + "' could not be found.");
-        }
-        JsonObject response = result.readEntity(JsonObject.class);
-        LOG.info("Retrieved JsonObject A: " + response + " for " + result + " " + name);
-        JsonObject extraPropertiesJsonObject = response.getJsonObject("extraProperties");
-        if (extraPropertiesJsonObject == null) {
-            throw new ValueNotFoundException("Extra properties for value '" + name + "' could not be found.");
-        }
-        JsonObject jsonObject = extraPropertiesJsonObject.getJsonObject("entity");
-        JsonObject retVal = jsonObject.getJsonObject(name);
-        LOG.info("Retrieved JsonObject: " + retVal + " for " + result + " " + name);
-        return retVal;
+		try {
+			JsonObject jsonObject = getJsonEntity(result);
+			JsonObject retVal = jsonObject.getJsonObject(name);
+			return retVal;
+		} catch (ValueNotFoundException e) {
+			throw new ValueNotFoundException("Value '" + name + "' could not be found.", e);
+		}
     }
 
-    protected String getBaseURI() {
+	protected JsonObject getJsonEntity(Response result) throws ValueNotFoundException {
+		if (404 == result.getStatus()) {
+			throw new ValueNotFoundException("Value could not be found. Location '" + result.getLocation() + "'.");
+		}
+		JsonObject response = result.readEntity(JsonObject.class);
+		JsonObject extraPropertiesJsonObject = response.getJsonObject("extraProperties");
+		if (extraPropertiesJsonObject == null) {
+			throw new ValueNotFoundException("Extra properties for the value could not be found. Location '" + result.getLocation() + "'.");
+		}
+		JsonObject jsonObject = extraPropertiesJsonObject.getJsonObject("entity");
+		return jsonObject;
+	}
+	
+	protected String getBaseURI() {
         return location.get() + "/monitoring/domain/" + serverInstance + "/";
     }
 

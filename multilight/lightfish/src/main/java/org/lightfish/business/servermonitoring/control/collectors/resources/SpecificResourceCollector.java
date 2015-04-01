@@ -2,8 +2,10 @@ package org.lightfish.business.servermonitoring.control.collectors.resources;
 
 import javax.json.JsonObject;
 import javax.ws.rs.core.Response;
+
 import org.lightfish.business.servermonitoring.control.collectors.AbstractRestDataCollector;
 import org.lightfish.business.servermonitoring.control.collectors.DataPoint;
+import org.lightfish.business.servermonitoring.control.collectors.ValueNotFoundException;
 import org.lightfish.business.servermonitoring.entity.ConnectionPool;
 
 /**
@@ -28,9 +30,7 @@ public class SpecificResourceCollector extends AbstractRestDataCollector<Connect
     @Override
     public DataPoint<ConnectionPool> collect() throws Exception {
         Response clientResponse = getResponse(constructResourceString());
-        JsonObject response = clientResponse.readEntity(JsonObject.class);
-        JsonObject entity = response.getJsonObject("extraProperties").
-                getJsonObject("entity");
+        JsonObject entity = getJsonEntity(clientResponse);
 
         int numconnfree = getIntVal(entity, "numconnfree", "current");
         int numconnused = getIntVal(entity, "numconnused", "current");
@@ -40,8 +40,12 @@ public class SpecificResourceCollector extends AbstractRestDataCollector<Connect
         return new DataPoint<>(resourceName, new ConnectionPool(resourceName, numconnfree, numconnused, waitqueuelength, numpotentialconnleak));
     }
 
-    private int getIntVal(JsonObject entity, String name, String key) throws Exception {
-        return entity.getJsonObject(name).getInt(key);
+    private int getIntVal(JsonObject entity, String name, String key) throws ValueNotFoundException {
+		JsonObject intVal = entity.getJsonObject(name);
+		if (intVal == null) {
+			throw new ValueNotFoundException("Value '" + name + "' could not be found.");
+		}
+        return intVal.getInt(key);
     }
 
     private String constructResourceString() {
