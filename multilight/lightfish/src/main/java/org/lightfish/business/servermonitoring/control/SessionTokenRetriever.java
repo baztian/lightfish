@@ -42,7 +42,7 @@ public class SessionTokenRetriever {
 
     public void retrieveSessionToken() {
         //TODO: support authentication with JAX-RS 2.0
-        //authenticator.get().addAuthenticator(client, username.get(), password.get());
+        authenticator.get().addAuthenticator(client, username.get(), password.get());
         WebTarget managementResource = this.client.target(getSessionsUri());
         JsonObject result = managementResource
                 .path("sessions")

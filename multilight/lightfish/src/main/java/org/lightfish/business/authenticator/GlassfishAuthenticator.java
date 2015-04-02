@@ -45,12 +45,30 @@ public class GlassfishAuthenticator {
         }
     }};
 
+	private String username;
+
+	private String password;
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public boolean hasCredentials() {
+		return username != null && password != null;
+	}
+
     public void addAuthenticator(Client client, String username, String password) {
         //TODO migration
         // client.addFilter(new HTTPBasicAuthFilter(username, password));
         /*
          * Bypass certificates
          */
+		this.username = username;
+		this.password = password;
         HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
 
             @Override
@@ -67,4 +85,5 @@ public class GlassfishAuthenticator {
             Logger.getLogger(SnapshotProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }

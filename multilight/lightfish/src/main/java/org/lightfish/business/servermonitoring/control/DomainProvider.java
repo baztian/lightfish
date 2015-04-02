@@ -54,7 +54,7 @@ public class DomainProvider {
 
     public Domain fetchDomainInfo() {
         //TODO migrate authenticator
-        // authenticator.get().addAuthenticator(client, username.get(), password.get());
+        authenticator.get().addAuthenticator(client, username.get(), password.get());
         List<String> servers = null;
         try {
             servers = getInstances();

@@ -33,7 +33,7 @@ public class DashboardModel {
     public void init() {
         this.current = new SimpleObjectProperty<>();
         this.serverUri = new SimpleStringProperty();
-        this.serverUri.setValue("http://localhost:8080/lightfish/");
+        this.serverUri.setValue("http://localhost:10080/lightfish/");
         this.applications = FXCollections.observableSet(new HashSet<Application>());
 
     }

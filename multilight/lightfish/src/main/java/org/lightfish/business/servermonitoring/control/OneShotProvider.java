@@ -51,7 +51,7 @@ public class OneShotProvider {
 
     public OneShot fetchOneShot() {
         //TODO migrate authenticator
-        //authenticator.get().addAuthenticator(client, username.get(), password.get());
+        authenticator.get().addAuthenticator(client, username.get(), password.get());
         String version = null;
         String uptime = null;
         try {
